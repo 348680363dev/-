@@ -10,70 +10,25 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
     }
     
-    .phone-frame {
-      width: 375px;
-      height: 812px;
-      background: #000;
-      border-radius: 50px;
-      overflow: hidden;
-      box-shadow: 0 50px 100px rgba(0,0,0,0.5), 0 0 0 3px #333, 0 0 0 6px #1a1a1a;
-      position: relative;
-    }
-    
-    .notch {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 30px;
-      background: #000;
-      border-radius: 0 0 20px 20px;
-      z-index: 100;
-    }
-    
-    .status-bar {
-      height: 50px;
-      background: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding: 8px 24px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      position: relative;
-      z-index: 10;
-    }
-    
-    .phone-content {
-      height: calc(100% - 50px);
-      overflow-y: auto;
-      overflow-x: hidden;
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
       background: #f5f9ff;
-      -webkit-overflow-scrolling: touch;
+      min-height: 100vh;
+      padding-bottom: 80px;
     }
     
-    .phone-content::-webkit-scrollbar { width: 0; }
-    
-    .cover-image {
-      width: 100%;
-      height: 200px;
+    .header {
       background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       color: #fff;
+      padding: 20px;
+      text-align: center;
       position: relative;
     }
     
-    .cover-badge {
+    .header-badge {
       position: absolute;
       top: 16px;
       right: 16px;
@@ -83,17 +38,15 @@
       font-size: 10px;
     }
     
-    .cover-image h1 {
+    .header h1 {
       font-size: 24px;
       font-weight: 700;
       margin-bottom: 8px;
-      text-align: center;
     }
     
-    .cover-image p {
+    .header p {
       font-size: 12px;
       opacity: 0.9;
-      text-align: center;
     }
     
     .content { padding: 16px; }
@@ -144,8 +97,10 @@
       padding: 12px 0;
       border-bottom: 1px solid #f0f0f0;
       cursor: pointer;
+      transition: background 0.2s;
     }
     .menu-item:last-child { border-bottom: none; }
+    .menu-item:active { background: #f5f9ff; }
     
     .menu-icon {
       width: 36px;
@@ -163,15 +118,18 @@
     .menu-arrow { color: #ccc; font-size: 14px; }
     
     .tab-bar {
-      position: absolute;
+      position: fixed;
       bottom: 0;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
       height: 70px;
       background: #fff;
       display: flex;
       border-top: 1px solid #f0f0f0;
       padding-bottom: env(safe-area-inset-bottom, 10px);
+      z-index: 100;
     }
     
     .tab-item {
@@ -205,6 +163,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       cursor: pointer;
     }
+    .feature-item:active { background: #f5f9ff; }
     
     .feature-icon {
       width: 44px;
@@ -222,21 +181,17 @@
     .feature-item p { font-size: 10px; color: #999; }
     
     .back-btn {
-      position: absolute;
-      top: 60px;
-      left: 12px;
-      width: 30px;
-      height: 30px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 50%;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 18px;
+      padding: 8px 16px;
+      background: #f0f0f0;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #666;
       cursor: pointer;
-      z-index: 10;
+      margin-bottom: 16px;
     }
+    .back-btn:active { background: #e0e0e0; }
     
     .contact-card {
       background: linear-gradient(135deg, #0284c7, #38bdf8);
@@ -262,6 +217,7 @@
       cursor: pointer;
       border: none;
     }
+    .contact-btn:active { opacity: 0.9; }
     
     .716-banner {
       background: linear-gradient(135deg, #dc2626, #b91c1c);
@@ -307,6 +263,7 @@
       border-radius: 8px;
       font-size: 14px;
       outline: none;
+      background: #fff;
     }
     
     .form-input:focus { border-color: #0284c7; }
@@ -320,6 +277,7 @@
       min-height: 80px;
       resize: none;
       outline: none;
+      background: #fff;
     }
     
     .form-textarea:focus { border-color: #0284c7; }
@@ -335,6 +293,7 @@
       font-weight: 600;
       cursor: pointer;
     }
+    .submit-btn:active { opacity: 0.9; }
     
     .cancel-btn {
       width: 100%;
@@ -347,6 +306,7 @@
       cursor: pointer;
       margin-top: 8px;
     }
+    .cancel-btn:active { background: #e0e0e0; }
     
     .image-preview {
       width: 100%;
@@ -492,353 +452,360 @@
     }
     .activity-card h3 { font-size: 15px; margin-bottom: 6px; }
     .activity-card p { font-size: 12px; opacity: 0.9; margin-bottom: 4px; }
+    
+    /* 响应式 */
+    @media (min-width: 768px) {
+      .container {
+        max-width: 480px;
+        margin: 20px auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        min-height: calc(100vh - 40px);
+      }
+      
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      }
+    }
   </style>
 </head>
 <body>
 
-<div class="phone-frame">
-  <div class="notch"></div>
+<div class="container">
   
-  <div class="status-bar">
-    <span>9:41</span>
-    <span>📶 📡 🔋</span>
-  </div>
-  
-  <div class="phone-content" id="phoneContent">
+  <!-- 首页 -->
+  <div class="page active" id="page-home">
+    <div class="header">
+      <div class="header-badge">🏆 冬泳协会</div>
+      <h1>🏊 瑶海冬泳协会</h1>
+      <p>成立于1990年 · 冬泳爱好者的家</p>
+    </div>
     
-    <!-- 首页 -->
-    <div class="page active" id="page-home">
-      <div class="cover-image">
-        <div class="cover-badge">🏆 冬泳协会</div>
-        <h1>🏊 瑶海冬泳协会</h1>
-        <p>成立于1990年 · 冬泳爱好者的家</p>
+    <div class="content">
+      <div class="notice-bar">
+        <span>📢</span>
+        <span>7·16纪念活动即将举行，欢迎参加！</span>
       </div>
       
-      <div class="content">
-        <div class="notice-bar">
-          <span>📢</span>
-          <span>7·16纪念活动即将举行，欢迎参加！</span>
+      <div class="716-banner">
+        <h3>🏊 纪念7·16畅游瑶海</h3>
+        <p>📅 2026年7月16日（周三）5:40集合</p>
+        <p>📍 地点：瑶海公园小亭子</p>
+        <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
+        <span class="716-tag">🔥 即将举行</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">走进协会</div>
+        <div class="feature-grid">
+          <div class="feature-item" onclick="showPage('intro')">
+            <div class="feature-icon">📋</div>
+            <h4>协会简介</h4>
+            <p>了解更多</p>
+          </div>
+          <div class="feature-item" onclick="showPage('leaders')">
+            <div class="feature-icon">👥</div>
+            <h4>组织架构</h4>
+            <p>理事会成员</p>
+          </div>
+          <div class="feature-item" onclick="showPage('rules')">
+            <div class="feature-icon">📜</div>
+            <h4>协会章程</h4>
+            <p>规章制度</p>
+          </div>
+          <div class="feature-item" onclick="showPage('safety')">
+            <div class="feature-icon">⚠️</div>
+            <h4>安全须知</h4>
+            <p>安全第一</p>
+          </div>
         </div>
-        
-        <div class="716-banner">
+      </div>
+      
+      <div class="card">
+        <div class="card-title">近期活动</div>
+        <div class="activity-card">
           <h3>🏊 纪念7·16畅游瑶海</h3>
           <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
-          <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
-          <span class="716-tag">🔥 即将举行</span>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">走进协会</div>
-          <div class="feature-grid">
-            <div class="feature-item" onclick="showPage('intro')">
-              <div class="feature-icon">📋</div>
-              <h4>协会简介</h4>
-              <p>了解更多</p>
-            </div>
-            <div class="feature-item" onclick="showPage('leaders')">
-              <div class="feature-icon">👥</div>
-              <h4>组织架构</h4>
-              <p>理事会成员</p>
-            </div>
-            <div class="feature-item" onclick="showPage('rules')">
-              <div class="feature-icon">📜</div>
-              <h4>协会章程</h4>
-              <p>规章制度</p>
-            </div>
-            <div class="feature-item" onclick="showPage('safety')">
-              <div class="feature-icon">⚠️</div>
-              <h4>安全须知</h4>
-              <p>安全第一</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">近期活动</div>
-          <div class="activity-card">
-            <h3>🏊 纪念7·16畅游瑶海</h3>
-            <p>📅 2026年7月16日（周三）5:40集合</p>
-            <p>📍 地点：瑶海公园小亭子</p>
-            <p>👤 负责人：牛之文 会长</p>
-          </div>
+          <p>👤 负责人：牛之文 会长</p>
         </div>
       </div>
     </div>
-    
-    <!-- 活动中心 -->
-    <div class="page" id="page-activity">
-      <div class="cover-image" style="height:140px;">
-        <div class="cover-badge">🎯 活动中心</div>
-        <h1>🎯 活动中心</h1>
-        <p>最新活动 · 往期回顾</p>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="716-banner">
-          <h3>🏊 纪念7·16畅游瑶海</h3>
-          <p>📅 2026年7月16日（周三）5:40集合</p>
-          <p>📍 地点：瑶海公园小亭子</p>
-          <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
-          <span class="716-tag">🔥 报名中</span>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">活动列表</div>
-          <div class="menu-item" onclick="showActivityDetail('latest')">
-            <div class="menu-icon">📢</div>
-            <span class="menu-text">最新活动预告</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" onclick="showActivityDetail('training')">
-            <div class="menu-icon">🏊</div>
-            <span class="menu-text">日常集训安排</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" onclick="showActivityDetail('album')">
-            <div class="menu-icon">📸</div>
-            <span class="menu-text">往期活动纪实</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" onclick="showPostForm('join')">
-            <div class="menu-icon">📝</div>
-            <span class="menu-text">入会申请</span>
-            <span class="menu-arrow">›</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 活动详情页 -->
-    <div class="page" id="page-activity-detail">
-      <div class="back-btn" onclick="closeActivityDetail()">‹</div>
-      <div class="cover-image" style="height:140px;">
-        <h1 id="detailTitle">📋 活动详情</h1>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div id="detailContent"></div>
-      </div>
-    </div>
-    
-    <!-- 活动发布 -->
-    <div class="page" id="page-show">
-      <div class="cover-image" style="height:140px;">
-        <div class="cover-badge">📝 活动发布</div>
-        <h1>📝 活动发布</h1>
-        <p>最新活动 · 资讯速递</p>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="716-banner">
-          <h3>🏊 纪念7·16畅游瑶海</h3>
-          <p>📅 2026年7月16日（周三）5:40集合</p>
-          <p>📍 地点：瑶海公园小亭子</p>
-          <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
-          <span class="716-tag">🔥 即将举行</span>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">📋 发布内容</div>
-          <div class="menu-item" onclick="showPostForm('activity')">
-            <div class="menu-icon">📢</div>
-            <span class="menu-text">发布活动</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" onclick="showPostForm('album')">
-            <div class="menu-icon">📸</div>
-            <span class="menu-text">上传相册</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item" onclick="showPostForm('feedback')">
-            <div class="menu-icon">💬</div>
-            <span class="menu-text">留言反馈</span>
-            <span class="menu-arrow">›</span>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">📜 最新发布<span class="tab-badge" id="postCount">0</span></div>
-          <div id="postList">
-            <div class="loading">加载中...</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 发布表单页面 -->
-    <div class="page" id="page-post-form">
-      <div class="back-btn" onclick="closePostForm()">‹</div>
-      <div class="cover-image" style="height:140px;">
-        <h1 id="formTitle">📝 发布内容</h1>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="card">
-          <div class="form-group">
-            <label class="form-label">您的称呼</label>
-            <input type="text" class="form-input" id="authorName" placeholder="请输入您的称呼">
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label" id="contentLabel">内容</label>
-            <textarea class="form-textarea" id="postContent" placeholder="请输入内容..."></textarea>
-          </div>
-          
-          <div class="form-group" id="imageGroup" style="display:none;">
-            <label class="image-upload-label">
-              📷 选择图片
-              <input type="file" accept="image/*" onchange="previewImage(this)">
-            </label>
-            <img id="imagePreview" class="image-preview" alt="预览">
-          </div>
-          
-          <button class="submit-btn" onclick="submitPost()">发布</button>
-          <button class="cancel-btn" onclick="closePostForm()">取消</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 协会简介 -->
-    <div class="page" id="page-intro">
-      <div class="back-btn" onclick="showPage('home')">‹</div>
-      <div class="cover-image" style="height:140px;">
-        <h1>📋 协会简介</h1>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="card">
-          <h3 style="font-size:15px;margin-bottom:10px;">合肥市瑶海冬泳协会</h3>
-          <p style="font-size:13px;color:#666;line-height:1.8;">
-            合肥市瑶海公园建成于上世纪1990年，瑶海冬泳人就开始冬泳。经过三十余年发展，瑶海冬泳协会现已发展为合肥市最具影响力的冬泳群众组织之一。
-          </p>
-          <p style="font-size:13px;color:#666;line-height:1.8;margin-top:10px;">
-            协会旨在为广大冬泳爱好者提供一个安全、规范、温馨的交流平台，让更多人感受冬泳的魅力，体验挑战极限的快乐。
-          </p>
-        </div>
-        <div class="card">
-          <div class="card-title">服务范围</div>
-          <p style="font-size:13px;color:#666;line-height:2;">
-            • 组织会员开展日常冬泳集训活动<br>
-            • 举办年度冬泳挑战赛、联谊交流活动<br>
-            • 推广冬泳运动，普及安全游泳知识<br>
-            • 参与公益活动，展现冬泳人风采
-          </p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 组织架构 -->
-    <div class="page" id="page-leaders">
-      <div class="back-btn" onclick="showPage('home')">‹</div>
-      <div class="cover-image" style="height:140px;">
-        <h1>👥 组织架构</h1>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="card">
-          <div class="card-title">理事会成员</div>
-          <div class="leader-item">
-            <div class="leader-avatar">会长</div>
-            <div class="leader-info">
-              <h4>牛之文</h4>
-              <p>会长 · 全面负责协会工作</p>
-            </div>
-          </div>
-          <div class="leader-item">
-            <div class="leader-avatar">副会长</div>
-            <div class="leader-info">
-              <h4>杨丽娟、何龙、朱雷、孙龙</h4>
-              <p>副会长 · 协助会长工作</p>
-            </div>
-          </div>
-          <div class="leader-item">
-            <div class="leader-avatar">秘书长</div>
-            <div class="leader-info">
-              <h4>励伟、罗雪</h4>
-              <p>秘书长 · 日常事务、会员管理</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 协会章程 -->
-    <div class="page" id="page-rules">
-      <div class="back-btn" onclick="showPage('home')">‹</div>
-      <div class="cover-image" style="height:140px;">
-        <h1>📜 协会章程</h1>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="card">
-          <div class="card-title">入会与退会</div>
-          <p style="font-size:13px;color:#666;line-height:1.8;">
-            入会自愿，退会自由。会员享有参加活动、获得服务、提出建议的权利，同时履行缴纳会费、维护协会权益的义务。
-          </p>
-        </div>
-        <div class="card">
-          <div class="card-title">会员守则</div>
-          <p style="font-size:13px;color:#666;line-height:1.8;">
-            • 遵纪守法，遵守社会公德<br>
-            • 积极参加协会组织的各项活动<br>
-            • 注意安全，不冒险逞强<br>
-            • 团结互助，维护协会形象
-          </p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 安全须知 -->
-    <div class="page" id="page-safety">
-      <div class="back-btn" onclick="showPage('home')">‹</div>
-      <div class="cover-image" style="height:140px; background: linear-gradient(135deg, #f97316, #ef4444);">
-        <h1>⚠️ 安全须知</h1>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="card">
-          <div class="card-title">安全第一</div>
-          <ul class="detail-list">
-            <li>🏊 下水前做好充分热身</li>
-            <li>🌡️ 水温低于10°C时避免长时间浸泡</li>
-            <li>👥 严禁独自一人下水</li>
-            <li>⏰ 每次冬泳不超过15分钟</li>
-            <li>🏥 身体不适时切勿下水</li>
-            <li>🚿 上岸后及时擦干身体保暖</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 联系我们 -->
-    <div class="page" id="page-contact">
-      <div class="cover-image" style="height:180px; background: linear-gradient(135deg, #0284c7, #38bdf8);">
-        <div class="cover-badge">📞 联系我们</div>
-        <h1>📞 联系我们</h1>
-        <p>开启你的冬泳之旅</p>
-      </div>
-      <div class="content" style="margin-top:16px;">
-        <div class="contact-card">
-          <h3>🏊 瑶海冬泳协会</h3>
-          <p>📱 入会请注明"冬泳入会"</p>
-          <button class="contact-btn" onclick="showPostForm('join')">📝 申请入会</button>
-        </div>
-      </div>
-    </div>
-    
   </div>
   
-  <!-- TabBar -->
-  <div class="tab-bar">
-    <div class="tab-item active" onclick="switchTab('home')">
-      <span class="tab-icon">🏠</span>
-      <span>首页</span>
+  <!-- 活动中心 -->
+  <div class="page" id="page-activity">
+    <div class="header">
+      <div class="header-badge">🎯 活动中心</div>
+      <h1>🎯 活动中心</h1>
+      <p>最新活动 · 往期回顾</p>
     </div>
-    <div class="tab-item" onclick="switchTab('activity')">
-      <span class="tab-icon">🎯</span>
-      <span>活动中心</span>
+    <div class="content">
+      <div class="716-banner">
+        <h3>🏊 纪念7·16畅游瑶海</h3>
+        <p>📅 2026年7月16日（周三）5:40集合</p>
+        <p>📍 地点：瑶海公园小亭子</p>
+        <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
+        <span class="716-tag">🔥 报名中</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">活动列表</div>
+        <div class="menu-item" onclick="showActivityDetail('latest')">
+          <div class="menu-icon">📢</div>
+          <span class="menu-text">最新活动预告</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="showActivityDetail('training')">
+          <div class="menu-icon">🏊</div>
+          <span class="menu-text">日常集训安排</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="showActivityDetail('album')">
+          <div class="menu-icon">📸</div>
+          <span class="menu-text">往期活动纪实</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="showPostForm('join')">
+          <div class="menu-icon">📝</div>
+          <span class="menu-text">入会申请</span>
+          <span class="menu-arrow">›</span>
+        </div>
+      </div>
     </div>
-    <div class="tab-item" onclick="switchTab('show')">
-      <span class="tab-icon">📝</span>
-      <span>活动发布</span>
+  </div>
+  
+  <!-- 活动详情页 -->
+  <div class="page" id="page-activity-detail">
+    <div class="header" style="padding-top:40px;">
+      <h1 id="detailTitle">📋 活动详情</h1>
     </div>
-    <div class="tab-item" onclick="switchTab('contact')">
-      <span class="tab-icon">📞</span>
-      <span>联系</span>
+    <div class="content">
+      <div class="back-btn" onclick="closeActivityDetail()">‹ 返回</div>
+      <div id="detailContent"></div>
     </div>
+  </div>
+  
+  <!-- 活动发布 -->
+  <div class="page" id="page-show">
+    <div class="header">
+      <div class="header-badge">📝 活动发布</div>
+      <h1>📝 活动发布</h1>
+      <p>最新活动 · 资讯速递</p>
+    </div>
+    <div class="content">
+      <div class="716-banner">
+        <h3>🏊 纪念7·16畅游瑶海</h3>
+        <p>📅 2026年7月16日（周三）5:40集合</p>
+        <p>📍 地点：瑶海公园小亭子</p>
+        <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
+        <span class="716-tag">🔥 即将举行</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">📋 发布内容</div>
+        <div class="menu-item" onclick="showPostForm('activity')">
+          <div class="menu-icon">📢</div>
+          <span class="menu-text">发布活动</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="showPostForm('album')">
+          <div class="menu-icon">📸</div>
+          <span class="menu-text">上传相册</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="showPostForm('feedback')">
+          <div class="menu-icon">💬</div>
+          <span class="menu-text">留言反馈</span>
+          <span class="menu-arrow">›</span>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">📜 最新发布<span class="tab-badge" id="postCount">0</span></div>
+        <div id="postList">
+          <div class="loading">加载中...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 发布表单页面 -->
+  <div class="page" id="page-post-form">
+    <div class="header" style="padding-top:40px;">
+      <h1 id="formTitle">📝 发布内容</h1>
+    </div>
+    <div class="content">
+      <div class="back-btn" onclick="closePostForm()">‹ 取消</div>
+      <div class="card">
+        <div class="form-group">
+          <label class="form-label">您的称呼</label>
+          <input type="text" class="form-input" id="authorName" placeholder="请输入您的称呼">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" id="contentLabel">内容</label>
+          <textarea class="form-textarea" id="postContent" placeholder="请输入内容..."></textarea>
+        </div>
+        
+        <div class="form-group" id="imageGroup" style="display:none;">
+          <label class="image-upload-label">
+            📷 选择图片
+            <input type="file" accept="image/*" onchange="previewImage(this)">
+          </label>
+          <img id="imagePreview" class="image-preview" alt="预览">
+        </div>
+        
+        <button class="submit-btn" onclick="submitPost()">发布</button>
+        <button class="cancel-btn" onclick="closePostForm()">取消</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 协会简介 -->
+  <div class="page" id="page-intro">
+    <div class="header" style="padding-top:40px;">
+      <h1>📋 协会简介</h1>
+    </div>
+    <div class="content">
+      <div class="back-btn" onclick="showPage('home')">‹ 返回</div>
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:10px;">合肥市瑶海冬泳协会</h3>
+        <p style="font-size:13px;color:#666;line-height:1.8;">
+          合肥市瑶海公园建成于上世纪1990年，瑶海冬泳人就开始冬泳。经过三十余年发展，瑶海冬泳协会现已发展为合肥市最具影响力的冬泳群众组织之一。
+        </p>
+        <p style="font-size:13px;color:#666;line-height:1.8;margin-top:10px;">
+          协会旨在为广大冬泳爱好者提供一个安全、规范、温馨的交流平台，让更多人感受冬泳的魅力，体验挑战极限的快乐。
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">服务范围</div>
+        <p style="font-size:13px;color:#666;line-height:2;">
+          • 组织会员开展日常冬泳集训活动<br>
+          • 举办年度冬泳挑战赛、联谊交流活动<br>
+          • 推广冬泳运动，普及安全游泳知识<br>
+          • 参与公益活动，展现冬泳人风采
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 组织架构 -->
+  <div class="page" id="page-leaders">
+    <div class="header" style="padding-top:40px;">
+      <h1>👥 组织架构</h1>
+    </div>
+    <div class="content">
+      <div class="back-btn" onclick="showPage('home')">‹ 返回</div>
+      <div class="card">
+        <div class="card-title">理事会成员</div>
+        <div class="leader-item">
+          <div class="leader-avatar">会长</div>
+          <div class="leader-info">
+            <h4>牛之文</h4>
+            <p>会长 · 全面负责协会工作</p>
+          </div>
+        </div>
+        <div class="leader-item">
+          <div class="leader-avatar">副会长</div>
+          <div class="leader-info">
+            <h4>杨丽娟、何龙、朱雷、孙龙</h4>
+            <p>副会长 · 协助会长工作</p>
+          </div>
+        </div>
+        <div class="leader-item">
+          <div class="leader-avatar">秘书长</div>
+          <div class="leader-info">
+            <h4>励伟、罗雪</h4>
+            <p>秘书长 · 日常事务、会员管理</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 协会章程 -->
+  <div class="page" id="page-rules">
+    <div class="header" style="padding-top:40px;">
+      <h1>📜 协会章程</h1>
+    </div>
+    <div class="content">
+      <div class="back-btn" onclick="showPage('home')">‹ 返回</div>
+      <div class="card">
+        <div class="card-title">入会与退会</div>
+        <p style="font-size:13px;color:#666;line-height:1.8;">
+          入会自愿，退会自由。会员享有参加活动、获得服务、提出建议的权利，同时履行缴纳会费、维护协会权益的义务。
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">会员守则</div>
+        <p style="font-size:13px;color:#666;line-height:1.8;">
+          • 遵纪守法，遵守社会公德<br>
+          • 积极参加协会组织的各项活动<br>
+          • 注意安全，不冒险逞强<br>
+          • 团结互助，维护协会形象
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 安全须知 -->
+  <div class="page" id="page-safety">
+    <div class="header" style="padding-top:40px; background: linear-gradient(135deg, #f97316, #ef4444);">
+      <h1>⚠️ 安全须知</h1>
+    </div>
+    <div class="content">
+      <div class="back-btn" onclick="showPage('home')">‹ 返回</div>
+      <div class="card">
+        <div class="card-title">安全第一</div>
+        <ul class="detail-list">
+          <li>🏊 下水前做好充分热身</li>
+          <li>🌡️ 水温低于10°C时避免长时间浸泡</li>
+          <li>👥 严禁独自一人下水</li>
+          <li>⏰ 每次冬泳不超过15分钟</li>
+          <li>🏥 身体不适时切勿下水</li>
+          <li>🚿 上岸后及时擦干身体保暖</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 联系我们 -->
+  <div class="page" id="page-contact">
+    <div class="header" style="background: linear-gradient(135deg, #0284c7, #38bdf8); padding: 30px 20px;">
+      <div class="header-badge">📞 联系我们</div>
+      <h1>📞 联系我们</h1>
+      <p>开启你的冬泳之旅</p>
+    </div>
+    <div class="content">
+      <div class="contact-card">
+        <h3>🏊 瑶海冬泳协会</h3>
+        <p>📱 入会请注明"冬泳入会"</p>
+        <button class="contact-btn" onclick="showPostForm('join')">📝 申请入会</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- TabBar -->
+<div class="tab-bar">
+  <div class="tab-item active" onclick="switchTab('home')">
+    <span class="tab-icon">🏠</span>
+    <span>首页</span>
+  </div>
+  <div class="tab-item" onclick="switchTab('activity')">
+    <span class="tab-icon">🎯</span>
+    <span>活动中心</span>
+  </div>
+  <div class="tab-item" onclick="switchTab('show')">
+    <span class="tab-icon">📝</span>
+    <span>活动发布</span>
+  </div>
+  <div class="tab-item" onclick="switchTab('contact')">
+    <span class="tab-icon">📞</span>
+    <span>联系</span>
   </div>
 </div>
 
@@ -849,12 +816,24 @@
   
   let currentPostType = 'activity';
   let selectedImage = null;
-  
-  // 初始化 Supabase 客户端
-  const { createClient } = window.supabase || {};
   let supabase = null;
   
-  // 兼容模式：优先使用 Supabase，否则用本地存储
+  // 加载 Supabase SDK
+  function loadSupabaseSDK() {
+    return new Promise((resolve, reject) => {
+      if (window.supabase) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Supabase SDK'));
+      document.head.appendChild(script);
+    });
+  }
+  
+  // 初始化 Supabase 客户端
   function getSupabaseClient() {
     if (supabase) return supabase;
     if (window.supabase) {
@@ -986,14 +965,14 @@
     
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-activity-detail').classList.add('active');
-    document.getElementById('phoneContent').scrollTop = 0;
+    window.scrollTo(0, 0);
   }
   
   // 关闭活动详情
   function closeActivityDetail() {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-activity').classList.add('active');
-    document.getElementById('phoneContent').scrollTop = 0;
+    window.scrollTo(0, 0);
   }
   
   // 显示发布表单
@@ -1035,14 +1014,14 @@
     
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-post-form').classList.add('active');
-    document.getElementById('phoneContent').scrollTop = 0;
+    window.scrollTo(0, 0);
   }
   
   // 关闭发布表单
   function closePostForm() {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-show').classList.add('active');
-    document.getElementById('phoneContent').scrollTop = 0;
+    window.scrollTo(0, 0);
   }
   
   // 图片预览
@@ -1084,7 +1063,6 @@
         if (error) throw error;
       } catch (err) {
         console.error('提交失败，保存到本地:', err);
-        // 本地备份
         const localPosts = JSON.parse(localStorage.getItem('swim_posts') || '[]');
         post.created_at = new Date().toLocaleString('zh-CN');
         post.id = Date.now();
@@ -1092,7 +1070,6 @@
         localStorage.setItem('swim_posts', JSON.stringify(localPosts));
       }
     } else {
-      // 本地存储
       const localPosts = JSON.parse(localStorage.getItem('swim_posts') || '[]');
       post.created_at = new Date().toLocaleString('zh-CN');
       post.id = Date.now();
@@ -1118,7 +1095,7 @@
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     event.currentTarget.classList.add('active');
     document.getElementById('page-' + tab).classList.add('active');
-    document.getElementById('phoneContent').scrollTop = 0;
+    window.scrollTo(0, 0);
     
     if (tab === 'show') {
       loadPosts();
@@ -1129,23 +1106,7 @@
   function showPage(page) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
-    document.getElementById('phoneContent').scrollTop = 0;
-  }
-  
-  // 加载 Supabase SDK
-  function loadSupabaseSDK() {
-    return new Promise((resolve, reject) => {
-      if (window.supabase) {
-        resolve();
-        return;
-      }
-      
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error('Failed to load Supabase SDK'));
-      document.head.appendChild(script);
-    });
+    window.scrollTo(0, 0);
   }
   
   // 启动
