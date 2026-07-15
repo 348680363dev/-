@@ -51,14 +51,6 @@
       z-index: 10;
     }
     
-    .webkit-bg {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #0284c7 100%);
-      flex: 1;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
     .phone-content {
       height: calc(100% - 50px);
       overflow-y: auto;
@@ -169,16 +161,6 @@
     
     .menu-text { flex: 1; font-size: 14px; color: #333; }
     .menu-arrow { color: #ccc; font-size: 14px; }
-    
-    .activity-card {
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      color: #fff;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .activity-card h3 { font-size: 15px; margin-bottom: 6px; }
-    .activity-card p { font-size: 12px; opacity: 0.9; margin-bottom: 4px; }
     
     .tab-bar {
       position: absolute;
@@ -309,9 +291,7 @@
     }
     
     /* 表单 */
-    .form-group {
-      margin-bottom: 12px;
-    }
+    .form-group { margin-bottom: 12px; }
     
     .form-label {
       font-size: 12px;
@@ -329,9 +309,7 @@
       outline: none;
     }
     
-    .form-input:focus {
-      border-color: #0284c7;
-    }
+    .form-input:focus { border-color: #0284c7; }
     
     .form-textarea {
       width: 100%;
@@ -344,9 +322,7 @@
       outline: none;
     }
     
-    .form-textarea:focus {
-      border-color: #0284c7;
-    }
+    .form-textarea:focus { border-color: #0284c7; }
     
     .submit-btn {
       width: 100%;
@@ -392,9 +368,7 @@
       margin-top: 8px;
     }
     
-    .image-upload-label input {
-      display: none;
-    }
+    .image-upload-label input { display: none; }
     
     .leader-item {
       display: flex;
@@ -436,7 +410,6 @@
       margin-left: 6px;
     }
     
-    /* 帖子列表 */
     .post-list { margin-top: 12px; }
     
     .post-item {
@@ -502,6 +475,23 @@
       color: #666;
     }
     .detail-list li:last-child { border-bottom: none; }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #0284c7;
+      font-size: 12px;
+    }
+    
+    .activity-card {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .activity-card h3 { font-size: 15px; margin-bottom: 6px; }
+    .activity-card p { font-size: 12px; opacity: 0.9; margin-bottom: 4px; }
   </style>
 </head>
 <body>
@@ -510,7 +500,7 @@
   <div class="notch"></div>
   
   <div class="status-bar">
-    <span class="webkit-bg">9:41</span>
+    <span>9:41</span>
     <span>📶 📡 🔋</span>
   </div>
   
@@ -535,7 +525,6 @@
           <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
           <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
-          <p>🎯 主题：健身逐浪 锤炼体魄</p>
           <span class="716-tag">🔥 即将举行</span>
         </div>
         
@@ -668,7 +657,7 @@
         <div class="card">
           <div class="card-title">📜 最新发布<span class="tab-badge" id="postCount">0</span></div>
           <div id="postList">
-            <div class="empty-state">暂无内容，我来发布第一条！</div>
+            <div class="loading">加载中...</div>
           </div>
         </div>
       </div>
@@ -854,25 +843,71 @@
 </div>
 
 <script>
+  // Supabase 配置
+  const SUPABASE_URL = 'https://qoexfanextvnksoxllnm.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_B0rr2uOxhyRcc2d9Neg7MA_pauXw-OH';
+  
   let currentPostType = 'activity';
   let selectedImage = null;
   
-  // 本地存储键名
-  const STORAGE_KEY = 'yaohai_posts';
+  // 初始化 Supabase 客户端
+  const { createClient } = window.supabase || {};
+  let supabase = null;
   
-  // 初始化
-  function init() {
-    loadPosts();
+  // 兼容模式：优先使用 Supabase，否则用本地存储
+  function getSupabaseClient() {
+    if (supabase) return supabase;
+    if (window.supabase) {
+      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    }
+    return supabase;
   }
   
   // 加载帖子
-  function loadPosts() {
-    const posts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    renderPosts(posts);
+  async function loadPosts() {
+    const postList = document.getElementById('postList');
+    const postCount = document.getElementById('postCount');
+    
+    const client = getSupabaseClient();
+    
+    if (client) {
+      try {
+        postList.innerHTML = '<div class="loading">加载中...</div>';
+        
+        const { data, error } = await client
+          .from('posts')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(20);
+        
+        if (error) throw error;
+        
+        postCount.textContent = data ? data.length : 0;
+        
+        if (!data || data.length === 0) {
+          postList.innerHTML = '<div class="empty-state">暂无内容，我来发布第一条！</div>';
+        } else {
+          postList.innerHTML = data.map(post => `
+            <div class="post-item">
+              ${post.image_url ? `<img src="${post.image_url}" alt="图片">` : ''}
+              <div class="post-author">${escapeHtml(post.author)}</div>
+              <div class="post-content">${escapeHtml(post.content)}</div>
+              <div class="post-time">${new Date(post.created_at).toLocaleString('zh-CN')}</div>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('加载失败，使用本地存储:', err);
+        loadPostsFromLocal();
+      }
+    } else {
+      loadPostsFromLocal();
+    }
   }
   
-  // 渲染帖子
-  function renderPosts(posts) {
+  // 本地存储加载
+  function loadPostsFromLocal() {
+    const posts = JSON.parse(localStorage.getItem('swim_posts') || '[]');
     const postList = document.getElementById('postList');
     const postCount = document.getElementById('postCount');
     
@@ -880,17 +915,16 @@
     
     if (posts.length === 0) {
       postList.innerHTML = '<div class="empty-state">暂无内容，我来发布第一条！</div>';
-      return;
+    } else {
+      postList.innerHTML = posts.map(post => `
+        <div class="post-item">
+          ${post.image ? `<img src="${post.image}" alt="图片">` : ''}
+          <div class="post-author">${escapeHtml(post.author)}</div>
+          <div class="post-content">${escapeHtml(post.content)}</div>
+          <div class="post-time">${post.time}</div>
+        </div>
+      `).join('');
     }
-    
-    postList.innerHTML = posts.map(post => `
-      <div class="post-item">
-        ${post.image ? `<img src="${post.image}" alt="图片">` : ''}
-        <div class="post-author">${escapeHtml(post.author)}</div>
-        <div class="post-content">${escapeHtml(post.content)}</div>
-        <div class="post-time">${post.time}</div>
-      </div>
-    `).join('');
   }
   
   // 显示活动详情
@@ -1025,7 +1059,7 @@
   }
   
   // 提交帖子
-  function submitPost() {
+  async function submitPost() {
     const author = document.getElementById('authorName').value.trim() || '匿名用户';
     const content = document.getElementById('postContent').value.trim();
     
@@ -1038,18 +1072,36 @@
       type: currentPostType,
       author: author,
       content: content,
-      image: selectedImage,
-      time: new Date().toLocaleString('zh-CN'),
-      id: Date.now()
+      image_url: selectedImage,
+      created_at: new Date().toISOString()
     };
     
-    const posts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    posts.unshift(post);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    const client = getSupabaseClient();
     
-    renderPosts(posts);
+    if (client) {
+      try {
+        const { error } = await client.from('posts').insert([post]);
+        if (error) throw error;
+      } catch (err) {
+        console.error('提交失败，保存到本地:', err);
+        // 本地备份
+        const localPosts = JSON.parse(localStorage.getItem('swim_posts') || '[]');
+        post.created_at = new Date().toLocaleString('zh-CN');
+        post.id = Date.now();
+        localPosts.unshift(post);
+        localStorage.setItem('swim_posts', JSON.stringify(localPosts));
+      }
+    } else {
+      // 本地存储
+      const localPosts = JSON.parse(localStorage.getItem('swim_posts') || '[]');
+      post.created_at = new Date().toLocaleString('zh-CN');
+      post.id = Date.now();
+      localPosts.unshift(post);
+      localStorage.setItem('swim_posts', JSON.stringify(localPosts));
+    }
+    
     closePostForm();
-    
+    loadPosts();
     alert('发布成功！');
   }
   
@@ -1067,6 +1119,10 @@
     event.currentTarget.classList.add('active');
     document.getElementById('page-' + tab).classList.add('active');
     document.getElementById('phoneContent').scrollTop = 0;
+    
+    if (tab === 'show') {
+      loadPosts();
+    }
   }
   
   // 页面切换
@@ -1076,7 +1132,33 @@
     document.getElementById('phoneContent').scrollTop = 0;
   }
   
+  // 加载 Supabase SDK
+  function loadSupabaseSDK() {
+    return new Promise((resolve, reject) => {
+      if (window.supabase) {
+        resolve();
+        return;
+      }
+      
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Supabase SDK'));
+      document.head.appendChild(script);
+    });
+  }
+  
   // 启动
+  async function init() {
+    try {
+      await loadSupabaseSDK();
+      getSupabaseClient();
+    } catch (e) {
+      console.log('Supabase SDK 加载失败，使用本地存储模式');
+    }
+    loadPosts();
+  }
+  
   init();
 </script>
 
