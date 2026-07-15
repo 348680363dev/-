@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>瑶海冬泳协会 - 冬泳爱好者的家</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --secondary: #38bdf8;
+      --accent: #f97316;
+      --dark: #0c4a6e;
+      --light: #f0f9ff;
+      --white: #ffffff;
+      --gray: #64748b;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--light);
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+    
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .navbar.scrolled .nav-logo { color: var(--primary); }
+    
+    .nav-logo span { font-size: 2rem; }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .navbar.scrolled .nav-links a { color: var(--gray); }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    
+    .nav-cta {
+      background: var(--accent);
+      color: white !important;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s !important;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(249,115,22,0.4); }
+    .nav-cta::after { display: none !important; }
+    
+    /* 移动端菜单 */
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+    .mobile-toggle span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+    .navbar.scrolled .mobile-toggle span { background: var(--primary); }
+    
+    /* Hero 区域 */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    .hero-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-text { color: white; }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .hero-badge span { font-size: 1.2rem; }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    
+    .hero h1 span {
+      display: block;
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-desc {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      line-height: 1.8;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      color: white;
+      box-shadow: 0 8px 30px rgba(249,115,22,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(249,115,22,0.5);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: white;
+    }
+    
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .hero-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 3rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+      color: white;
+      transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(0); }
+      50% { transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(-20px); }
+    }
+    
+    .hero-card-icon { font-size: 5rem; margin-bottom: 1rem; }
+    .hero-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .hero-card p { opacity: 0.8; font-size: 0.95rem; }
+    
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.9rem; opacity: 0.8; }
+    
+    /* 波浪分隔 */
+    .wave-divider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .wave-divider svg {
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 100px;
+    }
+    
+    /* 三个Tab展示 */
+    .section { padding: 6rem 2rem; }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    .section-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(2,132,199,0.1), rgba(56,189,248,0.1));
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(2,132,199,0.2);
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+    
+    /* 功能卡片 */
+    .features { background: white; }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .feature-card {
+      background: var(--light);
+      border-radius: 24px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(2,132,199,0.15);
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(2,132,199,0.3);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    
+    .feature-card p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    
+    /* 活动展示 */
+    .activities { background: linear-gradient(180deg, var(--light) 0%, white 100%); }
+    
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .activity-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+    }
+    
+    .activity-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+    
+    .activity-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 2rem;
+      color: white;
+      position: relative;
+    }
+    
+    .activity-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .activity-header p { opacity: 0.9; font-size: 0.95rem; }
+    
+    .activity-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    
+    .activity-body { padding: 2rem; }
+    
+    .activity-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .activity-info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .activity-info-item span:first-child {
+      width: 40px;
+      height: 40px;
+      background: var(--light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .activity-info-item div {
+      flex: 1;
+    }
+    
+    .activity-info-item strong {
+      display: block;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+    
+    .activity-info-item span:last-child {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+    
+    /* 会员风采 */
+    .showcase { background: var(--dark); color: white; }
+    .showcase .section-badge {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-color: rgba(255,255,255,0.2);
+    }
+    .showcase .section-title { color: white; }
+    .showcase .section-desc { color: rgba(255,255,255,0.7); }
+    
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .photo-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      transition: all 0.3s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .photo-item:hover {
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.05);
+    }
+    
+    .photo-item span {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      opacity: 0.8;
+    }
+    
+    /* 页脚 */
+    .footer {
+      background: #0a2540;
+      color: white;
+      padding: 4rem 2rem 2rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+    
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-brand p {
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    
+    .footer-links h4 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li { margin-bottom: 0.75rem; }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: white; }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+    
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-visual { display: none; }
+      .hero-desc { margin: 0 auto 2.5rem; }
+      .hero-buttons { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .photo-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: flex; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .activity-grid { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .section { padding: 4rem 1.5rem; }
+    }
+    
+    /* 扫描二维码提示 */
+    .qr-hint {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+    .qr-hint span { font-size: 1.5rem; }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <span>🏊</span>
+      <span>瑶海冬泳协会</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">走进协会</a></li>
+      <li><a href="#activities">活动中心</a></li>
+      <li><a href="#showcase">风采展示</a></li>
+      <li><a href="#contact">联系我们</a></li>
+      <li><a href="H5网页版/index.html" class="nav-cta">手机预览</a></li>
+    </ul>
+    <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Hero区域 -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span>🏆</span>
+          合肥市最具影响力的冬泳群众组织
+        </div>
+        <h1>
+          挑战严寒<br>
+          <span>畅享冬泳魅力</span>
+        </h1>
+        <p class="hero-desc">
+          合肥市瑶海冬泳协会成立于1990年，是一个充满活力与挑战的冬泳爱好者大家庭。我们致力于推广冬泳运动，倡导科学健身，让更多人感受冬泳的独特魅力。
+        </p>
+        <div class="hero-buttons">
+          <a href="#about" class="btn btn-primary">
+            <span>了解更多</span>
+            <span>→</span>
+          </a>
+          <a href="H5网页版/index.html" class="btn btn-outline">
+            <span>📱</span>
+            <span>手机预览</span>
+          </a>
+        </div>
+        <div class="qr-hint">
+          <span>📲</span>
+          扫码手机预览，体验完整功能
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-icon">🏊‍♂️</div>
+          <h3>科学冬泳</h3>
+          <p>安全第一 · 团结互助</p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">30+</div>
+              <div class="stat-label">年历史</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">200+</div>
+              <div class="stat-label">会员</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">52</div>
+              <div class="stat-label">周/年集训</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wave-divider">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" fill="#f5f9ff"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 走进协会 -->
+  <section class="section features" id="about">
+    <div class="section-header">
+      <div class="section-badge">🏠 走进协会</div>
+      <h2 class="section-title">瑶海冬泳协会</h2>
+      <p class="section-desc">三十余年坚守，只为那一池碧水的热爱</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>协会简介</h3>
+        <p>合肥市瑶海公园建成于上世纪1990年，瑶海冬泳人就开始冬泳。经过三十余年发展，已成为合肥市最具影响力的冬泳群众组织。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>组织架构</h3>
+        <p>协会理事会由会长牛之文带头，副会长杨丽娟、何龙、朱雷、孙龙，秘书长励伟、罗雪等核心成员组成。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📜</div>
+        <h3>协会章程</h3>
+        <p>入会自愿，退会自由。会员享有参加活动、获得服务、提出建议的权利，同时履行缴纳会费、维护协会权益的义务。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠️</div>
+        <h3>安全须知</h3>
+        <p>安全第一是协会的根本原则。所有会员必须遵守安全规程，确保冬泳活动安全、有序开展。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏥</div>
+        <h3>医疗保障</h3>
+        <p>协会配备应急医疗物资，定期开展安全培训。与当地医疗机构建立联动机制，确保会员安全。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>公益活动</h3>
+        <p>积极参与社会公益活动，展现冬泳人风采。多次组织跨地区冬泳交流，提升协会影响力。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活动中心 -->
+  <section class="section activities" id="activities">
+    <div class="section-header">
+      <div class="section-badge">🎯 活动中心</div>
+      <h2 class="section-title">精彩活动</h2>
+      <p class="section-desc">每周集训年度赛事，这个冬天不太冷</p>
+    </div>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-header">
+          <div class="activity-badge">每周</div>
+          <h3>🏊 日常集训</h3>
+          <p>风雨无阻 · 持之以恒</p>
+        </div>
+        <div class="activity-body">
+          <div class="activity-info">
+            <div class="activity-info-item">
+              <span>📅</span>
+              <div><strong>每周六早上 7:00</strong></div>
+              <span>准时开始</span>
+            </div>
+            <div class="activity-info-item">
+              <span>📍</span>
+              <div><strong>瑶海公园湖边</strong></div>
+              <span>集合地点</span>
+            </div>
+            <div class="activity-info-item">
+              <span>👤</span>
+              <div><strong>牛之文 会长</strong></div>
+              <span>活动负责人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-header" style="background: linear-gradient(135deg, #f97316, #fb923c);">
+          <div class="activity-badge">年度</div>
+          <h3>🏆 冬泳挑战赛</h3>
+          <p>挑战自我 · 突破极限</p>
+        </div>
+        <div class="activity-body">
+          <div class="activity-info">
+            <div class="activity-info-item">
+              <span>📅</span>
+              <div><strong>每年元旦前后</strong></div>
+              <span>传统赛事</span>
+            </div>
+            <div class="activity-info-item">
+              <span>📍</span>
+              <div><strong>待定</strong></div>
+              <span>比赛地点</span>
+            </div>
+            <div class="activity-info-item">
+              <span>🎁</span>
+              <div><strong>奖牌证书</strong></div>
+              <span>完赛奖励</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 风采展示 -->
+  <section class="section showcase" id="showcase">
+    <div class="section-header">
+      <div class="section-badge">✨ 风采展示</div>
+      <h2 class="section-title">会员风采</h2>
+      <p class="section-desc">定格每一个精彩瞬间</p>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-item">🏊<span>冬泳训练</span></div>
+      <div class="photo-item">❄️<span>破冰前行</span></div>
+      <div class="photo-item">🏅<span>荣誉时刻</span></div>
+      <div class="photo-item">👥<span>团队合影</span></div>
+      <div class="photo-item">🌅<span>日出训练</span></div>
+      <div class="photo-item">🤝<span>交流活动</span></div>
+      <div class="photo-item">🎉<span>年会庆典</span></div>
+      <div class="photo-item">💪<span>挑战自我</span></div>
+    </div>
+  </section>
+
+  <!-- 联系我们 -->
+  <section class="section" id="contact" style="background: white;">
+    <div class="section-header">
+      <div class="section-badge">📞 联系我们</div>
+      <h2 class="section-title">加入我们</h2>
+      <p class="section-desc">开启你的冬泳之旅</p>
+    </div>
+    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+      <div style="background: var(--light); border-radius: 24px; padding: 3rem;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🏊‍♂️</div>
+        <h3 style="font-size: 1.5rem; color: var(--dark); margin-bottom: 1rem;">瑶海冬泳协会</h3>
+        <p style="color: var(--gray); margin-bottom: 2rem; line-height: 1.8;">
+          📍 集合地点：合肥市瑶海公园湖边<br>
+          👤 会 长：牛之文<br>
+          📅 集训时间：每周六 早上 7:00
+        </p>
+        <a href="H5网页版/index.html" class="btn btn-primary" style="display: inline-flex;">
+          <span>📱</span>
+          <span>手机端扫码入会</span>
+        </a>
+        <p style="color: var(--gray); font-size: 0.85rem; margin-top: 1.5rem;">
+          备注"冬泳入会"以便快速处理
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3><span>🏊</span> 瑶海冬泳协会</h3>
+        <p>合肥市瑶海冬泳协会成立于1990年，是一个致力于推广冬泳运动、倡导科学健身的群众组织。三十余年来，我们始终秉持"安全第一、团结互助、科学冬泳"的理念，为广大冬泳爱好者提供交流平台。</p>
+      </div>
+      <div class="footer-links">
+        <h4>快速链接</h4>
+        <ul>
+          <li><a href="#about">走进协会</a></li>
+          <li><a href="#activities">活动中心</a></li>
+          <li><a href="#showcase">风采展示</a></li>
+          <li><a href="#contact">联系我们</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>相关下载</h4>
+        <ul>
+          <li><a href="H5网页版/index.html">手机端H5</a></li>
+          <li><a href="小程序原型/index.html">小程序原型</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 合肥市瑶海冬泳协会 | 安全第一 · 团结互助 · 科学冬泳</p>
+    </div>
+  </footer>
+
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
