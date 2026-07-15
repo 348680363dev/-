@@ -16,7 +16,6 @@
       padding: 20px;
     }
     
-    /* 手机外壳 */
     .phone-frame {
       width: 375px;
       height: 812px;
@@ -27,7 +26,6 @@
       position: relative;
     }
     
-    /* 刘海 */
     .notch {
       position: absolute;
       top: 0;
@@ -40,7 +38,6 @@
       z-index: 100;
     }
     
-    /* 状态栏 */
     .status-bar {
       height: 50px;
       background: #fff;
@@ -54,7 +51,6 @@
       z-index: 10;
     }
     
-    /* WebKit背景 */
     .webkit-bg {
       background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #0284c7 100%);
       flex: 1;
@@ -63,7 +59,6 @@
       background-clip: text;
     }
     
-    /* 内容区 */
     .phone-content {
       height: calc(100% - 50px);
       overflow-y: auto;
@@ -74,7 +69,6 @@
     
     .phone-content::-webkit-scrollbar { width: 0; }
     
-    /* 封面 */
     .cover-image {
       width: 100%;
       height: 200px;
@@ -110,10 +104,8 @@
       text-align: center;
     }
     
-    /* 内容 */
     .content { padding: 16px; }
     
-    /* 公告 */
     .notice-bar {
       background: linear-gradient(135deg, #dc2626, #ef4444);
       color: #fff;
@@ -128,7 +120,6 @@
     .notice-bar span:first-child { font-size: 16px; }
     .notice-bar span:last-child { flex: 1; }
     
-    /* 卡片 */
     .card {
       background: #fff;
       border-radius: 16px;
@@ -155,7 +146,6 @@
       border-radius: 2px;
     }
     
-    /* 菜单 */
     .menu-item {
       display: flex;
       align-items: center;
@@ -179,7 +169,6 @@
     .menu-text { flex: 1; font-size: 14px; color: #333; }
     .menu-arrow { color: #ccc; font-size: 14px; }
     
-    /* 活动卡片 */
     .activity-card {
       background: linear-gradient(135deg, #0284c7, #38bdf8);
       color: #fff;
@@ -190,11 +179,6 @@
     .activity-card h3 { font-size: 15px; margin-bottom: 6px; }
     .activity-card p { font-size: 12px; opacity: 0.9; margin-bottom: 4px; }
     
-    .activity-card.orange {
-      background: linear-gradient(135deg, #f97316, #fb923c);
-    }
-    
-    /* TabBar */
     .tab-bar {
       position: absolute;
       bottom: 0;
@@ -221,11 +205,9 @@
     .tab-item.active { color: #0284c7; }
     .tab-icon { font-size: 20px; margin-bottom: 4px; }
     
-    /* 页面 */
     .page { display: none; }
     .page.active { display: block; }
     
-    /* 功能卡片 */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -238,6 +220,7 @@
       padding: 14px;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      cursor: pointer;
     }
     
     .feature-icon {
@@ -255,7 +238,6 @@
     .feature-item h4 { font-size: 12px; color: #333; margin-bottom: 4px; }
     .feature-item p { font-size: 10px; color: #999; }
     
-    /* 返回按钮 */
     .back-btn {
       position: absolute;
       top: 60px;
@@ -273,56 +255,6 @@
       z-index: 10;
     }
     
-    /* 风采网格 */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-    
-    .photo-item {
-      aspect-ratio: 1;
-      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    
-    .photo-item span {
-      font-size: 10px;
-      color: #0284c7;
-      margin-top: 4px;
-    }
-    
-    /* 领导列表 */
-    .leader-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #f5f5f5;
-    }
-    .leader-item:last-child { border-bottom: none; }
-    
-    .leader-avatar {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 11px;
-      margin-right: 12px;
-    }
-    
-    .leader-info h4 { font-size: 14px; color: #333; margin-bottom: 2px; }
-    .leader-info p { font-size: 11px; color: #999; }
-    
-    /* 联系卡片 */
     .contact-card {
       background: linear-gradient(135deg, #0284c7, #38bdf8);
       border-radius: 16px;
@@ -346,7 +278,6 @@
       text-decoration: none;
     }
     
-    /* 7·16活动 */
     .716-banner {
       background: linear-gradient(135deg, #dc2626, #b91c1c);
       border-radius: 14px;
@@ -373,21 +304,196 @@
       font-size: 10px;
       margin-top: 8px;
     }
+    
+    /* 发布按钮 */
+    .post-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      text-align: center;
+    }
+    
+    /* 帖子列表 */
+    .post-list { margin-top: 12px; }
+    
+    .post-item {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .post-item img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+    
+    .post-author {
+      font-size: 11px;
+      color: #0284c7;
+      margin-bottom: 4px;
+    }
+    
+    .post-content {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .post-time {
+      font-size: 10px;
+      color: #999;
+      margin-top: 6px;
+    }
+    
+    /* 表单 */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    
+    .form-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+      display: block;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    
+    .form-input:focus {
+      border-color: #0284c7;
+    }
+    
+    .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      min-height: 80px;
+      resize: none;
+      outline: none;
+    }
+    
+    .form-textarea:focus {
+      border-color: #0284c7;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .cancel-btn {
+      width: 100%;
+      padding: 12px;
+      background: #f0f0f0;
+      color: #666;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    
+    .image-preview {
+      width: 100%;
+      max-height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: none;
+    }
+    
+    .image-upload-label {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #e0f2fe;
+      color: #0284c7;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    
+    .image-upload-label input {
+      display: none;
+    }
+    
+    .leader-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .leader-item:last-child { border-bottom: none; }
+    
+    .leader-avatar {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      margin-right: 12px;
+    }
+    
+    .leader-info h4 { font-size: 14px; color: #333; margin-bottom: 2px; }
+    .leader-info p { font-size: 11px; color: #999; }
+    
+    .empty-state {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-size: 12px;
+    }
+    
+    .tab-badge {
+      background: #dc2626;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 6px;
+    }
   </style>
 </head>
 <body>
 
 <div class="phone-frame">
-  <!-- 刘海 -->
   <div class="notch"></div>
   
-  <!-- 状态栏 -->
   <div class="status-bar">
     <span class="webkit-bg">9:41</span>
     <span>📶 📡 🔋</span>
   </div>
   
-  <!-- 内容区 -->
   <div class="phone-content" id="phoneContent">
     
     <!-- 首页 -->
@@ -399,23 +505,20 @@
       </div>
       
       <div class="content">
-        <!-- 公告 -->
         <div class="notice-bar">
           <span>📢</span>
           <span>7·16纪念活动即将举行，欢迎参加！</span>
         </div>
         
-        <!-- 7·16活动 -->
         <div class="716-banner">
           <h3>🏊 纪念7·16畅游瑶海</h3>
-          <p>📅 2026年7月16日（周三）清晨5:40集合</p>
+          <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
           <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
           <p>🎯 主题：健身逐浪 锤炼体魄</p>
           <span class="716-tag">🔥 即将举行</span>
         </div>
         
-        <!-- 走进协会 -->
         <div class="card">
           <div class="card-title">走进协会</div>
           <div class="feature-grid">
@@ -442,7 +545,6 @@
           </div>
         </div>
         
-        <!-- 近期活动 -->
         <div class="card">
           <div class="card-title">近期活动</div>
           <div class="activity-card">
@@ -465,7 +567,7 @@
       <div class="content" style="margin-top:16px;">
         <div class="716-banner">
           <h3>🏊 纪念7·16畅游瑶海</h3>
-          <p>📅 2026年7月16日（周三）清晨5:40集合</p>
+          <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
           <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
           <p>🎯 主题：健身逐浪 锤炼体魄</p>
@@ -501,14 +603,14 @@
     <!-- 活动发布 -->
     <div class="page" id="page-show">
       <div class="cover-image" style="height:140px;">
-        <div class="cover-badge">🎯 活动发布</div>
-        <h1>🎯 活动发布</h1>
+        <div class="cover-badge">📝 活动发布</div>
+        <h1>📝 活动发布</h1>
         <p>最新活动 · 资讯速递</p>
       </div>
       <div class="content" style="margin-top:16px;">
         <div class="716-banner">
           <h3>🏊 纪念7·16畅游瑶海</h3>
-          <p>📅 2026年7月16日（周三）清晨5:40集合</p>
+          <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
           <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
           <p>🎯 主题：健身逐浪 锤炼体魄</p>
@@ -516,27 +618,62 @@
         </div>
         
         <div class="card">
-          <div class="card-title">📋 活动详情</div>
-          <div class="menu-item">
+          <div class="card-title">📋 发布内容</div>
+          <div class="menu-item" onclick="showPostForm('activity')">
             <div class="menu-icon">📢</div>
-            <span class="menu-text">活动公告</span>
+            <span class="menu-text">发布活动</span>
             <span class="menu-arrow">›</span>
           </div>
-          <div class="menu-item">
-            <div class="menu-icon">🏊</div>
-            <span class="menu-text">集训报名</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item">
-            <div class="menu-icon">🏆</div>
-            <span class="menu-text">赛事通知</span>
-            <span class="menu-arrow">›</span>
-          </div>
-          <div class="menu-item">
+          <div class="menu-item" onclick="showPostForm('album')">
             <div class="menu-icon">📸</div>
-            <span class="menu-text">活动纪实</span>
+            <span class="menu-text">上传相册</span>
             <span class="menu-arrow">›</span>
           </div>
+          <div class="menu-item" onclick="showPostForm('feedback')">
+            <div class="menu-icon">💬</div>
+            <span class="menu-text">留言反馈</span>
+            <span class="menu-arrow">›</span>
+          </div>
+        </div>
+        
+        <!-- 帖子列表 -->
+        <div class="card">
+          <div class="card-title">📜 最新发布<span class="tab-badge" id="postCount">0</span></div>
+          <div id="postList">
+            <div class="empty-state">暂无内容，我来发布第一条！</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 发布表单页面 -->
+    <div class="page" id="page-post-form">
+      <div class="back-btn" onclick="closePostForm()">‹</div>
+      <div class="cover-image" style="height:140px;">
+        <h1 id="formTitle">📝 发布内容</h1>
+      </div>
+      <div class="content" style="margin-top:16px;">
+        <div class="card">
+          <div class="form-group">
+            <label class="form-label">您的称呼</label>
+            <input type="text" class="form-input" id="authorName" placeholder="请输入您的称呼">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" id="contentLabel">内容</label>
+            <textarea class="form-textarea" id="postContent" placeholder="请输入内容..."></textarea>
+          </div>
+          
+          <div class="form-group" id="imageGroup" style="display:none;">
+            <label class="image-upload-label">
+              📷 选择图片
+              <input type="file" accept="image/*" onchange="previewImage(this)">
+            </label>
+            <img id="imagePreview" class="image-preview" alt="预览">
+          </div>
+          
+          <button class="submit-btn" onclick="submitPost()">发布</button>
+          <button class="cancel-btn" onclick="closePostForm()">取消</button>
         </div>
       </div>
     </div>
@@ -614,6 +751,7 @@
         <div class="contact-card">
           <h3>🏊 瑶海冬泳协会</h3>
           <p>📱 入会请注明"冬泳入会"</p>
+          <span class="contact-btn" onclick="showPostForm('join')">📝 申请入会</span>
         </div>
       </div>
     </div>
@@ -631,7 +769,7 @@
       <span>活动中心</span>
     </div>
     <div class="tab-item" onclick="switchTab('show')">
-      <span class="tab-icon">📢</span>
+      <span class="tab-icon">📝</span>
       <span>活动发布</span>
     </div>
     <div class="tab-item" onclick="switchTab('contact')">
@@ -642,6 +780,144 @@
 </div>
 
 <script>
+  let currentPostType = 'activity';
+  let selectedImage = null;
+  
+  // 本地存储键名
+  const STORAGE_KEY = 'yaohai_posts';
+  
+  // 初始化
+  function init() {
+    loadPosts();
+  }
+  
+  // 加载帖子
+  function loadPosts() {
+    const posts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    renderPosts(posts);
+  }
+  
+  // 渲染帖子
+  function renderPosts(posts) {
+    const postList = document.getElementById('postList');
+    const postCount = document.getElementById('postCount');
+    
+    postCount.textContent = posts.length;
+    
+    if (posts.length === 0) {
+      postList.innerHTML = '<div class="empty-state">暂无内容，我来发布第一条！</div>';
+      return;
+    }
+    
+    postList.innerHTML = posts.map(post => `
+      <div class="post-item">
+        ${post.image ? `<img src="${post.image}" alt="图片">` : ''}
+        <div class="post-author">${escapeHtml(post.author)}</div>
+        <div class="post-content">${escapeHtml(post.content)}</div>
+        <div class="post-time">${post.time}</div>
+      </div>
+    `).join('');
+  }
+  
+  // 显示发布表单
+  function showPostForm(type) {
+    currentPostType = type;
+    
+    const titles = {
+      activity: '📢 发布活动',
+      album: '📸 上传相册',
+      feedback: '💬 留言反馈',
+      join: '📝 申请入会'
+    };
+    
+    const labels = {
+      activity: '活动内容',
+      album: '图片说明',
+      feedback: '留言内容',
+      join: '入会理由'
+    };
+    
+    const placeholders = {
+      activity: '请输入活动内容...',
+      album: '请描述这张照片...',
+      feedback: '请输入您的意见或建议...',
+      join: '请输入入会理由...'
+    };
+    
+    document.getElementById('formTitle').textContent = titles[type];
+    document.getElementById('contentLabel').textContent = labels[type];
+    document.getElementById('postContent').placeholder = placeholders[type];
+    document.getElementById('imageGroup').style.display = type === 'album' ? 'block' : 'none';
+    
+    // 清空表单
+    document.getElementById('authorName').value = '';
+    document.getElementById('postContent').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('imagePreview').src = '';
+    selectedImage = null;
+    
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-post-form').classList.add('active');
+    document.getElementById('phoneContent').scrollTop = 0;
+  }
+  
+  // 关闭发布表单
+  function closePostForm() {
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-show').classList.add('active');
+    document.getElementById('phoneContent').scrollTop = 0;
+  }
+  
+  // 图片预览
+  function previewImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('imagePreview').src = e.target.result;
+        document.getElementById('imagePreview').style.display = 'block';
+        selectedImage = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  
+  // 提交帖子
+  function submitPost() {
+    const author = document.getElementById('authorName').value.trim() || '匿名用户';
+    const content = document.getElementById('postContent').value.trim();
+    
+    if (!content) {
+      alert('请输入内容');
+      return;
+    }
+    
+    const post = {
+      type: currentPostType,
+      author: author,
+      content: content,
+      image: selectedImage,
+      time: new Date().toLocaleString('zh-CN'),
+      id: Date.now()
+    };
+    
+    const posts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    posts.unshift(post);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    
+    renderPosts(posts);
+    closePostForm();
+    
+    alert('发布成功！');
+  }
+  
+  // HTML转义
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  // Tab切换
   function switchTab(tab) {
     document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
@@ -650,11 +926,15 @@
     document.getElementById('phoneContent').scrollTop = 0;
   }
   
+  // 页面切换
   function showPage(page) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
     document.getElementById('phoneContent').scrollTop = 0;
   }
+  
+  // 启动
+  init();
 </script>
 
 </body>
