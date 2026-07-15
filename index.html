@@ -151,6 +151,7 @@
       align-items: center;
       padding: 12px 0;
       border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
     }
     .menu-item:last-child { border-bottom: none; }
     
@@ -276,6 +277,8 @@
       font-weight: 600;
       margin-top: 12px;
       text-decoration: none;
+      cursor: pointer;
+      border: none;
     }
     
     .716-banner {
@@ -303,56 +306,6 @@
       border-radius: 10px;
       font-size: 10px;
       margin-top: 8px;
-    }
-    
-    /* 发布按钮 */
-    .post-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 12px;
-      text-align: center;
-    }
-    
-    /* 帖子列表 */
-    .post-list { margin-top: 12px; }
-    
-    .post-item {
-      background: #f8fafc;
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
-    
-    .post-item img {
-      width: 100%;
-      border-radius: 8px;
-      margin: 8px 0;
-    }
-    
-    .post-author {
-      font-size: 11px;
-      color: #0284c7;
-      margin-bottom: 4px;
-    }
-    
-    .post-content {
-      font-size: 13px;
-      color: #333;
-      line-height: 1.6;
-    }
-    
-    .post-time {
-      font-size: 10px;
-      color: #999;
-      margin-top: 6px;
     }
     
     /* 表单 */
@@ -482,6 +435,73 @@
       border-radius: 10px;
       margin-left: 6px;
     }
+    
+    /* 帖子列表 */
+    .post-list { margin-top: 12px; }
+    
+    .post-item {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .post-item img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+    
+    .post-author {
+      font-size: 11px;
+      color: #0284c7;
+      margin-bottom: 4px;
+    }
+    
+    .post-content {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .post-time {
+      font-size: 10px;
+      color: #999;
+      margin-top: 6px;
+    }
+    
+    .detail-content {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .detail-content h4 {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    
+    .detail-content p {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.8;
+    }
+    
+    .detail-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .detail-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 12px;
+      color: #666;
+    }
+    .detail-list li:last-child { border-bottom: none; }
   </style>
 </head>
 <body>
@@ -570,33 +590,43 @@
           <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
           <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
-          <p>🎯 主题：健身逐浪 锤炼体魄</p>
           <span class="716-tag">🔥 报名中</span>
         </div>
         
         <div class="card">
           <div class="card-title">活动列表</div>
-          <div class="menu-item">
+          <div class="menu-item" onclick="showActivityDetail('latest')">
             <div class="menu-icon">📢</div>
             <span class="menu-text">最新活动预告</span>
             <span class="menu-arrow">›</span>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" onclick="showActivityDetail('training')">
             <div class="menu-icon">🏊</div>
             <span class="menu-text">日常集训安排</span>
             <span class="menu-arrow">›</span>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" onclick="showActivityDetail('album')">
             <div class="menu-icon">📸</div>
             <span class="menu-text">往期活动纪实</span>
             <span class="menu-arrow">›</span>
           </div>
-          <div class="menu-item">
+          <div class="menu-item" onclick="showPostForm('join')">
             <div class="menu-icon">📝</div>
             <span class="menu-text">入会申请</span>
             <span class="menu-arrow">›</span>
           </div>
         </div>
+      </div>
+    </div>
+    
+    <!-- 活动详情页 -->
+    <div class="page" id="page-activity-detail">
+      <div class="back-btn" onclick="closeActivityDetail()">‹</div>
+      <div class="cover-image" style="height:140px;">
+        <h1 id="detailTitle">📋 活动详情</h1>
+      </div>
+      <div class="content" style="margin-top:16px;">
+        <div id="detailContent"></div>
       </div>
     </div>
     
@@ -613,7 +643,6 @@
           <p>📅 2026年7月16日（周三）5:40集合</p>
           <p>📍 地点：瑶海公园小亭子</p>
           <p>🕕 6:00 会长致辞 | 🕖 6:10 党史学习 | 🕗 6:30 集体畅游</p>
-          <p>🎯 主题：健身逐浪 锤炼体魄</p>
           <span class="716-tag">🔥 即将举行</span>
         </div>
         
@@ -636,7 +665,6 @@
           </div>
         </div>
         
-        <!-- 帖子列表 -->
         <div class="card">
           <div class="card-title">📜 最新发布<span class="tab-badge" id="postCount">0</span></div>
           <div id="postList">
@@ -740,6 +768,52 @@
       </div>
     </div>
     
+    <!-- 协会章程 -->
+    <div class="page" id="page-rules">
+      <div class="back-btn" onclick="showPage('home')">‹</div>
+      <div class="cover-image" style="height:140px;">
+        <h1>📜 协会章程</h1>
+      </div>
+      <div class="content" style="margin-top:16px;">
+        <div class="card">
+          <div class="card-title">入会与退会</div>
+          <p style="font-size:13px;color:#666;line-height:1.8;">
+            入会自愿，退会自由。会员享有参加活动、获得服务、提出建议的权利，同时履行缴纳会费、维护协会权益的义务。
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">会员守则</div>
+          <p style="font-size:13px;color:#666;line-height:1.8;">
+            • 遵纪守法，遵守社会公德<br>
+            • 积极参加协会组织的各项活动<br>
+            • 注意安全，不冒险逞强<br>
+            • 团结互助，维护协会形象
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 安全须知 -->
+    <div class="page" id="page-safety">
+      <div class="back-btn" onclick="showPage('home')">‹</div>
+      <div class="cover-image" style="height:140px; background: linear-gradient(135deg, #f97316, #ef4444);">
+        <h1>⚠️ 安全须知</h1>
+      </div>
+      <div class="content" style="margin-top:16px;">
+        <div class="card">
+          <div class="card-title">安全第一</div>
+          <ul class="detail-list">
+            <li>🏊 下水前做好充分热身</li>
+            <li>🌡️ 水温低于10°C时避免长时间浸泡</li>
+            <li>👥 严禁独自一人下水</li>
+            <li>⏰ 每次冬泳不超过15分钟</li>
+            <li>🏥 身体不适时切勿下水</li>
+            <li>🚿 上岸后及时擦干身体保暖</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
     <!-- 联系我们 -->
     <div class="page" id="page-contact">
       <div class="cover-image" style="height:180px; background: linear-gradient(135deg, #0284c7, #38bdf8);">
@@ -751,7 +825,7 @@
         <div class="contact-card">
           <h3>🏊 瑶海冬泳协会</h3>
           <p>📱 入会请注明"冬泳入会"</p>
-          <span class="contact-btn" onclick="showPostForm('join')">📝 申请入会</span>
+          <button class="contact-btn" onclick="showPostForm('join')">📝 申请入会</button>
         </div>
       </div>
     </div>
@@ -817,6 +891,75 @@
         <div class="post-time">${post.time}</div>
       </div>
     `).join('');
+  }
+  
+  // 显示活动详情
+  function showActivityDetail(type) {
+    const details = {
+      latest: {
+        title: '📢 最新活动预告',
+        content: `
+          <div class="detail-content">
+            <h4>🏊 纪念7·16畅游瑶海</h4>
+            <p>为纪念毛泽东同志7·16畅游长江60周年，协会决定举办集体畅游活动。</p>
+          </div>
+          <div class="detail-content">
+            <h4>活动时间</h4>
+            <p>2026年7月16日（周三）清晨5:40集合</p>
+          </div>
+          <div class="detail-content">
+            <h4>活动地点</h4>
+            <p>瑶海公园小亭子</p>
+          </div>
+          <div class="detail-content">
+            <h4>活动安排</h4>
+            <p>🕕 6:00 会长致辞<br>🕖 6:10 党史学习<br>🕗 6:30 集体畅游</p>
+          </div>
+        `
+      },
+      training: {
+        title: '🏊 日常集训安排',
+        content: `
+          <div class="detail-content">
+            <h4>每周六常规集训</h4>
+            <p>时间：每周六 早上7:00<br>地点：瑶海公园湖边<br>负责人：牛之文 会长</p>
+          </div>
+          <div class="detail-content">
+            <h4>集训内容</h4>
+            <p>• 热身运动（15分钟）<br>• 下水畅游（30-45分钟）<br>• 整理运动（10分钟）</p>
+          </div>
+          <div class="detail-content">
+            <h4>注意事项</h4>
+            <p>• 请提前10分钟到达<br>• 自备泳具<br>• 服从现场安排</p>
+          </div>
+        `
+      },
+      album: {
+        title: '📸 往期活动纪实',
+        content: `
+          <div class="detail-content">
+            <h4>往期活动照片</h4>
+            <p>精彩瞬间，待您上传！</p>
+            <button class="submit-btn" onclick="showPostForm('album')" style="margin-top:12px;">📷 上传照片</button>
+          </div>
+        `
+      }
+    };
+    
+    const detail = details[type] || details.latest;
+    document.getElementById('detailTitle').textContent = detail.title;
+    document.getElementById('detailContent').innerHTML = detail.content;
+    
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-activity-detail').classList.add('active');
+    document.getElementById('phoneContent').scrollTop = 0;
+  }
+  
+  // 关闭活动详情
+  function closeActivityDetail() {
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-activity').classList.add('active');
+    document.getElementById('phoneContent').scrollTop = 0;
   }
   
   // 显示发布表单
